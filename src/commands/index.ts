@@ -1,9 +1,9 @@
-import { CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { CommandInteraction, SlashCommandBuilder, SlashCommandOptionsOnlyBuilder } from "discord.js";
 import fs from "fs/promises";
 import path from "path";
 
 export type Command = {
-  data: SlashCommandBuilder;
+  data: SlashCommandBuilder | SlashCommandOptionsOnlyBuilder;
   func: (interaction: CommandInteraction) => Promise<void>;
 };
 

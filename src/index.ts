@@ -1,4 +1,4 @@
-import "dotenv/config";
+import { envVars, testEnvVars } from "./config";
 import { Client, Events, IntentsBitField, REST, Routes } from "discord.js";
 import { loadCommands } from "./commands";
 
@@ -6,9 +6,12 @@ const client = new Client({
   intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMembers]
 });
 
+const { BOT_TOKEN, CLIENT_ID, NODE_ENV, GUILD_ID } = envVars;
+const { TEST_GUILD_ID } = testEnvVars;
+
 (async () => {
   const commands = await loadCommands();
-  const rest = new REST().setToken(process.env.BOT_TOKEN!);
+  const rest = new REST().setToken(BOT_TOKEN!);
 
   client.once(Events.ClientReady, (readyClient) => console.log(`로그인됨: ${readyClient.user.tag}`));
   client.on(Events.InteractionCreate, async (interaction) => {
@@ -25,19 +28,13 @@ const client = new Client({
 
   try {
     console.log("명령어 등록 시작");
-    await rest.put(
-      Routes.applicationGuildCommands(
-        process.env.CLIENT_ID!,
-        process.env.NODE_ENV === "dev" ? process.env.TEST_GUILD_ID! : process.env.GUILD_ID!
-      ),
-      {
-        body: Array.from(commands.values()).map((command) => command.data.toJSON())
-      }
-    );
+    await rest.put(Routes.applicationGuildCommands(CLIENT_ID!, NODE_ENV === "dev" ? TEST_GUILD_ID! : GUILD_ID!), {
+      body: Array.from(commands.values()).map((command) => command.data.toJSON())
+    });
     console.log("명령어 등록됨");
   } catch (error) {
     console.error(error);
   }
 
-  client.login(process.env.BOT_TOKEN);
+  client.login(BOT_TOKEN);
 })();
