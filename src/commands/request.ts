@@ -54,10 +54,11 @@ const command: Command = {
             color: parseInt(roleColor, 16)
           });
         (interaction.member as GuildMember).roles.add(role);
-      }
+        await message.edit({ embeds: [embed], components: [] });
+        response.reply("역할이 생성되었습니다.");
+      } else await deleteMessage();
     } catch (error) {
       console.error(error);
-    } finally {
       await deleteMessage();
     }
   }

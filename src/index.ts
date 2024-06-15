@@ -9,6 +9,8 @@ const client = new Client({
 const { BOT_TOKEN, CLIENT_ID, NODE_ENV, GUILD_ID } = envVars;
 const { TEST_GUILD_ID } = testEnvVars;
 
+if (NODE_ENV === "dev") console.log("DEVELOPMENT MODE");
+
 (async () => {
   const commands = await loadCommands();
   const rest = new REST().setToken(BOT_TOKEN!);
