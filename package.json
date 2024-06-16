@@ -11,11 +11,13 @@
   "name": "reqro",
   "version": "1.0.0",
   "description": "역할 생성 요청을 간편화한 디스코드 봇",
-  "main": "./src/index.ts",
+  "main": "./build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "@powershell $env:NODE_ENV='prod'; ts-node ./src/index.ts",
-    "dev": "@powershell $env:NODE_ENV='dev'; nodemon ./src/index.ts"
+    "dev": "nodemon ./src/index.ts",
+    "build": "npx tsc --p . && npm run make-archive",
+    "start": "node ./build/index.js",
+    "make-archive": "cd ./build && 7z -tzip a ./build"
   },
   "keywords": [],
   "author": "",
