@@ -2,7 +2,7 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, GuildMember
 import { Command } from ".";
 import { envVars, testEnvVars } from "../config";
 
-const command: Command = {
+export const command: Command = {
   data: new SlashCommandBuilder()
     .setName("request")
     .setDescription("역할 생성을 요청합니다.")
@@ -63,5 +63,3 @@ const command: Command = {
     }
   }
 };
-
-export default command;
