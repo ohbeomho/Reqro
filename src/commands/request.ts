@@ -41,7 +41,7 @@ export const command: Command = {
     }
 
     let roleName = String(interaction.options.get("name", true).value),
-      color: any = String(interaction.options.get("color-hex", true).value);
+      color: any = String(interaction.options.get("color", true).value);
 
     if (color.startsWith("#")) color = color.substring(1);
     color = parseInt(color, 16);
