@@ -16,7 +16,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./src/index.ts",
-    "build": "npx tsc --p . && npm run make-archive",
+    "build": "@powershell npx tsc --p . ; rm build/build.zip; npm run make-archive",
     "start": "node ./build/index.js",
     "make-archive": "cd ./build && 7z -tzip a ./build"
   },
